@@ -12,6 +12,7 @@ data class ContentData(
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     var contentId: Long = 0,
+    @Column(columnDefinition="TEXT")
     var caption: String,
 
     @CreationTimestamp

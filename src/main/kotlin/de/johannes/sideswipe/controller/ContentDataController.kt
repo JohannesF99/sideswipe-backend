@@ -32,6 +32,13 @@ class ContentDataController(
         return contentDataRepository.findByIdOrNull(contentId.toLong())
     }
 
+    @PutMapping("/{contentId}")
+    fun changeContent(@PathVariable username: String, @PathVariable contentId: Int, @RequestBody newCaption: String): ContentData {
+        val content = contentDataRepository.findByContentId(contentId.toLong())
+        content.caption = newCaption
+        return contentDataRepository.save(content)
+    }
+
     @DeleteMapping("/{contentId}")
     fun deleteContent(@PathVariable username: String, @PathVariable contentId: Int){
         contentDataRepository.deleteById(contentId.toLong())
