@@ -23,11 +23,11 @@ class FriendDataController(
             val friend = userDataRepository.findByUsername(friendName)
             if (!friendDataRepository.existsByUserIdAndFriendData(user.userId, friend)) {
                 friendDataRepository.save(FriendData(user, friend))
-                logger.info("User \"$username\" added \"$friendName\" to his friends!")
+                logger.info("User '$username' added '$friendName' to his friends!")
             }
         } catch (e: Exception){
-            logger.warn("Friend-Request unsuccessful, because User-ID \"$username\" or Friend \"$friendName\" could not be found!")
-            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Friend-Request unsuccessful, because User-ID \"$username\" or Friend \"$friendName\" could not be found!", e)
+            logger.warn("Friend-Request unsuccessful, because User-ID '$username' or Friend '$friendName' could not be found!")
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Friend-Request unsuccessful, because User-ID '$username' or Friend '$friendName' could not be found!", e)
         }
     }
 
@@ -36,11 +36,11 @@ class FriendDataController(
         try {
             val user = userDataRepository.findByUsername(username)
             val friend = userDataRepository.findByUsername(friendName)
-            logger.info("User \"$username\" removed \"$friendName\" from his friends!")
+            logger.info("User '$username' removed '$friendName' from his friends!")
             return friendDataRepository.deleteByUserIdAndFriendData(user.userId, friend)
         } catch (e: Exception){
-            logger.warn("Removal of Friend-Request unsuccessful, because User-ID \"$username\" or Friend \"$friendName\" could not be found!")
-            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Removal of Friend-Request unsuccessful, because User-ID \"$username\" or Friend \"$friendName\" could not be found!", e)
+            logger.warn("Removal of Friend-Request unsuccessful, because User-ID '$username' or Friend '$friendName' could not be found!")
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Removal of Friend-Request unsuccessful, because User-ID '$username' or Friend '$friendName' could not be found!", e)
         }
     }
 
@@ -48,11 +48,11 @@ class FriendDataController(
     fun getFriendsForUserData(@PathVariable username: String): Set<FriendData> {
         try {
             val user = userDataRepository.findByUsername(username)
-            logger.info("Fetched Friends-List for Username \"$username\"!")
+            logger.info("Fetched Friends-List for Username '$username'!")
             return friendDataRepository.findAllByUserId(user.userId)
         } catch (e: Exception){
-            logger.warn("Could not fetch Friends-List for unknown Username \"$username\"!")
-            throw  ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not fetch Friends-List for unknown Username \"$username\"!", e)
+            logger.warn("Could not fetch Friends-List for unknown Username '$username'!")
+            throw  ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not fetch Friends-List for unknown Username '$username'!", e)
         }
     }
 }

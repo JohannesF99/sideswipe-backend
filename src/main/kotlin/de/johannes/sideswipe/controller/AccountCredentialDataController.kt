@@ -14,7 +14,7 @@ class AccountCredentialDataController(
 
     @DeleteMapping
     fun deleteAccountCredentials(@RequestBody username: String){
-        logger.info("Account with Username \"$username\" got deleted!")
+        logger.info("Account with Username '$username' got deleted!")
         accountCredentialDataRepository.deleteByUsername(username)
     }
 
