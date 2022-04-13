@@ -32,7 +32,7 @@ class LoginTokenController(
             logger.info("New Account created: $accountCredentialData")
             logger.info("Corresponding User created: $user")
         } catch (e: Exception){
-            logger.error("Account-Creation failed, because Username/E-Mail is already registered!")
+            logger.warn("Account-Creation failed, because Username/E-Mail is already registered!")
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Account-Creation failed, because Username/E-Mail is already registered!", e)
         }
     }
@@ -49,7 +49,7 @@ class LoginTokenController(
             logger.info("Login from Account: $accountData")
             return accountData.hasLoginToken()!!
         } else {
-            logger.error("No Account for given Credentials can be found!")
+            logger.warn("No Account for given Credentials can be found!")
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "No Account for given Credentials can be found!")
         }
     }
