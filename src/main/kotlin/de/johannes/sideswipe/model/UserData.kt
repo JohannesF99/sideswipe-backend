@@ -4,6 +4,8 @@ import de.johannes.sideswipe.enums.Gender
 import org.hibernate.Hibernate
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
+import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.core.userdetails.UserDetails
 import java.util.*
 import javax.persistence.*
 
@@ -46,6 +48,13 @@ data class UserData(
 
     @OneToMany(mappedBy = "friendData", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     private val friendData: Set<FriendData> = mutableSetOf()
+
+    fun doesTokenMatch(){
+        val tokenUserDetails = SecurityContextHolder.getContext().authentication.principal as UserDetails
+        if (this.username != tokenUserDetails.username) {
+            throw SecurityException("Authorization-Token does not match Username!")
+        }
+    }
 
     constructor(account: AccountCredentialData):
             this(account.username,
