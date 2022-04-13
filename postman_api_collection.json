@@ -1,0 +1,929 @@
+{
+	"info": {
+		"_postman_id": "a132f461-a668-47c7-b21a-3e95a7155758",
+		"name": "SocialNetwork-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Public",
+			"item": [
+				{
+					"name": "LoginTokenController",
+					"item": [
+						{
+							"name": "Create Account",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"string\",\r\n  \"username\": \"string\",\r\n  \"password\": \"string\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://89.58.36.232:8080/public/api/v1/account",
+									"protocol": "http",
+									"host": [
+										"89",
+										"58",
+										"36",
+										"232"
+									],
+									"port": "8080",
+									"path": [
+										"public",
+										"api",
+										"v1",
+										"account"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Account Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"string\",\r\n  \"username\": \"string\",\r\n  \"password\": \"string\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://89.58.36.232:8080/public/api/v1/account/login",
+									"protocol": "http",
+									"host": [
+										"89",
+										"58",
+										"36",
+										"232"
+									],
+									"port": "8080",
+									"path": [
+										"public",
+										"api",
+										"v1",
+										"account",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Account Logout",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"string\",\r\n  \"username\": \"string\",\r\n  \"password\": \"string\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://89.58.36.232:8080/public/api/v1/account/logout",
+									"protocol": "http",
+									"host": [
+										"89",
+										"58",
+										"36",
+										"232"
+									],
+									"port": "8080",
+									"path": [
+										"public",
+										"api",
+										"v1",
+										"account",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Private",
+			"item": [
+				{
+					"name": "UserDataController",
+					"item": [
+						{
+							"name": "Get User Data",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "2959fa35-30c6-46a5-a38e-e390f787ad93",
+										"type": "default",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "http://89.58.36.232:8080/api/v1/user/{username}",
+									"protocol": "http",
+									"host": [
+										"89",
+										"58",
+										"36",
+										"232"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"{username}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show All Users",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "2959fa35-30c6-46a5-a38e-e390f787ad93",
+										"type": "default",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "http://89.58.36.232:8080/api/v1/user/all",
+									"protocol": "http",
+									"host": [
+										"89",
+										"58",
+										"36",
+										"232"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change First Name",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "Vorname",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/vorname",
+									"protocol": "http",
+									"host": [
+										"89",
+										"58",
+										"36",
+										"232"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"{username}",
+										"vorname"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change Last Name",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "Nachname",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/name",
+									"protocol": "http",
+									"host": [
+										"89",
+										"58",
+										"36",
+										"232"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"{username}",
+										"name"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change Gender",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "Gender",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/gender",
+									"protocol": "http",
+									"host": [
+										"89",
+										"58",
+										"36",
+										"232"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"{username}",
+										"gender"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change Birthday",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "Birthday",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/birthday",
+									"protocol": "http",
+									"host": [
+										"89",
+										"58",
+										"36",
+										"232"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"{username}",
+										"birthday"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "AccountCredentialDataController",
+					"item": [
+						{
+							"name": "Show All Accounts",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "token",
+										"value": "2959fa35-30c6-46a5-a38e-e390f787ad93",
+										"type": "default",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "http://89.58.36.232:8080/api/v1/account/all",
+									"protocol": "http",
+									"host": [
+										"89",
+										"58",
+										"36",
+										"232"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"account",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Account",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "78c4a950-8df9-4ab1-9a8c-d5edbf0711e2",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "token",
+										"value": "2959fa35-30c6-46a5-a38e-e390f787ad93",
+										"type": "default",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\"username\"",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://89.58.36.232:8080/api/v1/account",
+									"protocol": "http",
+									"host": [
+										"89",
+										"58",
+										"36",
+										"232"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"account"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "ContentDataController",
+					"item": [
+						{
+							"name": "Get Content",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/content/{contentId}",
+									"protocol": "http",
+									"host": [
+										"89",
+										"58",
+										"36",
+										"232"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"{username}",
+										"content",
+										"{contentId}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change Content",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "New Caption",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/content/{contentId}",
+									"protocol": "http",
+									"host": [
+										"89",
+										"58",
+										"36",
+										"232"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"{username}",
+										"content",
+										"{contentId}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Content",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/content/{contentId}",
+									"protocol": "http",
+									"host": [
+										"89",
+										"58",
+										"36",
+										"232"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"{username}",
+										"content",
+										"{contentId}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Content",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"caption\": \"string\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/content",
+									"protocol": "http",
+									"host": [
+										"89",
+										"58",
+										"36",
+										"232"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"{username}",
+										"content"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Content of Friends",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/content/friends",
+									"protocol": "http",
+									"host": [
+										"89",
+										"58",
+										"36",
+										"232"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"{username}",
+										"content",
+										"friends"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Content of User",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/content/all",
+									"protocol": "http",
+									"host": [
+										"89",
+										"58",
+										"36",
+										"232"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"{username}",
+										"content",
+										"all"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "InteractionDataController",
+					"item": [
+						{
+							"name": "Dislike Content",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/interaction/{contentId}/dislike",
+									"protocol": "http",
+									"host": [
+										"89",
+										"58",
+										"36",
+										"232"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"{username}",
+										"interaction",
+										"{contentId}",
+										"dislike"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Like Content",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/interaction/{contentId}/like",
+									"protocol": "http",
+									"host": [
+										"89",
+										"58",
+										"36",
+										"232"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"{username}",
+										"interaction",
+										"{contentId}",
+										"like"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Interactions of Content",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/interaction/{contentId}",
+									"protocol": "http",
+									"host": [
+										"89",
+										"58",
+										"36",
+										"232"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"{username}",
+										"interaction",
+										"{contentId}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Interactions of User",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/interaction/all",
+									"protocol": "http",
+									"host": [
+										"89",
+										"58",
+										"36",
+										"232"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"{username}",
+										"interaction",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Interaction of Content",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/interaction/{contentId}/remove",
+									"protocol": "http",
+									"host": [
+										"89",
+										"58",
+										"36",
+										"232"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"{username}",
+										"interaction",
+										"{contentId}",
+										"remove"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "FriendDataController",
+					"item": [
+						{
+							"name": "Add Friend",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "friendID"
+								},
+								"url": {
+									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/friend",
+									"protocol": "http",
+									"host": [
+										"89",
+										"58",
+										"36",
+										"232"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"{username}",
+										"friend"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Friend",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "friendID"
+								},
+								"url": {
+									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/friend",
+									"protocol": "http",
+									"host": [
+										"89",
+										"58",
+										"36",
+										"232"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"{username}",
+										"friend"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show All Friends Of User",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/friend/all",
+									"protocol": "http",
+									"host": [
+										"89",
+										"58",
+										"36",
+										"232"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"{username}",
+										"friend",
+										"all"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
