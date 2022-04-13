@@ -15,7 +15,11 @@ class AuthenticationFilter(requestMatcher: RequestMatcher
 ): AbstractAuthenticationProcessingFilter(requestMatcher) {
     override fun attemptAuthentication(request: HttpServletRequest, response: HttpServletResponse): Authentication {
         var token = request.getHeader(AUTHORIZATION)
-        token = StringUtils.removeStart(token, "Bearer").trim()
+        token = if (token != null){
+            StringUtils.removeStart(token, "Bearer").trim()
+        } else {
+            ""
+        }
         val auth = UsernamePasswordAuthenticationToken(token, token)
         return authenticationManager.authenticate(auth)
     }

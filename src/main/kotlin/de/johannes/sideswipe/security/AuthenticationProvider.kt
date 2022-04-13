@@ -6,6 +6,7 @@ import org.springframework.security.authentication.dao.AbstractUserDetailsAuthen
 import org.springframework.security.core.authority.AuthorityUtils
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
+import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Component
 import java.util.*
 
@@ -19,9 +20,14 @@ class AuthenticationProvider(private val accountCredentialDataRepository: Accoun
     ) {}
 
     override fun retrieveUser(username: String, authentication: UsernamePasswordAuthenticationToken): UserDetails {
-        val token = UUID.fromString(authentication.credentials.toString())
-        val account = accountCredentialDataRepository.findByLoginToken(token)
-        return User(account.username,account.password, true, true, account.isLoginTokenExpired(), true,
-            AuthorityUtils.createAuthorityList("USER"))
+        try {
+            val token = UUID.fromString(authentication.credentials.toString())
+            val account = accountCredentialDataRepository.findByLoginToken(token)
+            return User(account.username,account.password, true, true, account.isLoginTokenExpired(), true,
+                AuthorityUtils.createAuthorityList("USER"))
+        } catch (e: IllegalArgumentException) {
+            logger.warn("Unauthorized API-Request without Bearer-Token!")
+            throw UsernameNotFoundException("No Authorization-Token found!", e)
+        }
     }
 }
