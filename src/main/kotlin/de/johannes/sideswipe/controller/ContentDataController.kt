@@ -25,7 +25,7 @@ class ContentDataController(
             val user = userDataRepository.findByUsername(username)
             user.doesTokenMatch()
             val content = contentDataRepository.save(ContentData(contentData, user))
-            logger.info("User '$username' created new Content with ID ${content.contentId}")
+            logger.info("User '$username' created new Content with ID '${content.contentId}'!")
             return content.contentId
         } catch (e: EmptyResultDataAccessException) {
             logger.warn("Could not create new Content, because of unknown Username '$username'!")
