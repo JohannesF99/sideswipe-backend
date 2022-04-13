@@ -6,11 +6,13 @@ import de.johannes.sideswipe.repositories.AccountCredentialDataRepository
 import de.johannes.sideswipe.repositories.UserDataRepository
 import de.johannes.sideswipe.service.PasswordEncoderService.Companion.toSHA256
 import org.apache.logging.log4j.LogManager
-import org.springframework.http.ResponseEntity
+import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.server.ResponseStatusException
+import java.util.*
 
 @RestController
 @RequestMapping("/public/api/v1/account")
@@ -22,16 +24,21 @@ class LoginTokenController(
 
     @PostMapping
     fun addAccountCredentials(@RequestBody accountCredentialData: AccountCredentialData){
-        accountCredentialData.password = accountCredentialData.password.toSHA256()
-        accountCredentialDataRepository.save(accountCredentialData)
-        val user = UserData(accountCredentialData)
-        userDataRepository.save(user)
-        logger.info("New Account created: $accountCredentialData")
-        logger.info("Corresponding User created: $user")
+        try {
+            accountCredentialData.password = accountCredentialData.password.toSHA256()
+            accountCredentialDataRepository.save(accountCredentialData)
+            val user = UserData(accountCredentialData)
+            userDataRepository.save(user)
+            logger.info("New Account created: $accountCredentialData")
+            logger.info("Corresponding User created: $user")
+        } catch (e: Exception){
+            logger.error("Account-Creation failed, because Username/E-Mail is already registered!")
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Account-Creation failed, because Username/E-Mail is already registered!", e)
+        }
     }
 
     @PostMapping("/login")
-    fun loginAccount(@RequestBody account: AccountCredentialData): ResponseEntity<*> {
+    fun loginAccount(@RequestBody account: AccountCredentialData): UUID {
         val accountData = accountCredentialDataRepository.findByUsernameAndPassword(account.username, account.password.toSHA256())
         if (accountData != null) {
             accountData.hasLoginToken() ?: accountData.createLoginToken()
@@ -40,10 +47,11 @@ class LoginTokenController(
             }
             accountCredentialDataRepository.save(accountData)
             logger.info("Login from Account: $accountData")
-            return ResponseEntity.ok().body(accountData.hasLoginToken())
+            return accountData.hasLoginToken()!!
+        } else {
+            logger.error("No Account for given Credentials can be found!")
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "No Account for given Credentials can be found!")
         }
-        logger.error("Non-existing Account tried to login!")
-        return ResponseEntity.badRequest().body("No User with given Credentials found!")
     }
 
     @PostMapping("/logout")
@@ -53,6 +61,9 @@ class LoginTokenController(
             accountData.removeLoginToken()
             accountCredentialDataRepository.save(accountData)
             logger.info("Logout from Account: $accountData")
+        } else {
+            logger.warn("No Account for given Credentials can be found!")
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "No Account for given Credentials can be found!")
         }
     }
 }
