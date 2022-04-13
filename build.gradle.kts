@@ -17,6 +17,10 @@ configurations {
 	compileOnly {
 		extendsFrom(configurations.annotationProcessor.get())
 	}
+	all {
+		exclude("ch.qos.logback")
+		exclude (group = "org.springframework.boot", module = "spring-boot-starter-logging")
+	}
 }
 
 repositories {
@@ -35,9 +39,10 @@ dependencies {
 	implementation ("org.springframework.boot:spring-boot-starter-jdbc")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	implementation("org.springdoc:springdoc-openapi-ui:1.6.6")
+	implementation("org.springdoc:springdoc-openapi-ui:1.6.7")
 	implementation ("org.springframework.boot:spring-boot-starter-security")
 	implementation ("org.springframework.security:spring-security-test")
+	implementation("org.springframework.boot:spring-boot-starter-log4j2:2.6.6")
 }
 
 tasks.withType<KotlinCompile> {
@@ -49,4 +54,9 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+tasks.clean{
+	delete("./logs")
+	delete("./database")
 }
