@@ -4,6 +4,7 @@ import de.johannes.sideswipe.model.InteractionData
 import de.johannes.sideswipe.repositories.ContentDataRepository
 import de.johannes.sideswipe.repositories.InteractionDataRepository
 import de.johannes.sideswipe.repositories.UserDataRepository
+import org.apache.logging.log4j.LogManager
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -13,6 +14,8 @@ class InteractionDataController(
     private val userDataRepository: UserDataRepository,
     private val contentDataRepository: ContentDataRepository
 ) {
+    private val logger = LogManager.getLogger()
+
     @GetMapping("/{contendId}")
     fun getAllInteractionsForContent(@PathVariable contendId: Int, @PathVariable username: String): List<Map<String, Boolean>> {
         val content = contentDataRepository.findByContentId(contendId.toLong())
@@ -35,6 +38,7 @@ class InteractionDataController(
         val user = userDataRepository.findByUsername(username)
         val interactionData = interactionDataRepository.findByUserDataAndContentData(user, content) ?: InteractionData(true, user, content)
         interactionData.isLike = true
+        logger.info("User \"$username\" liked the Post with Content ID $contentId!")
         return interactionDataRepository.save(interactionData)
     }
 
@@ -44,6 +48,7 @@ class InteractionDataController(
         val user = userDataRepository.findByUsername(username)
         val interactionData = interactionDataRepository.findByUserDataAndContentData(user, content) ?: InteractionData(false, user, content)
         interactionData.isLike = false
+        logger.info("User \"$username\" disliked the Post with Content ID $contentId!")
         return interactionDataRepository.save(interactionData)
     }
 
@@ -51,6 +56,7 @@ class InteractionDataController(
     fun removeInteraction(@PathVariable contentId: Int, @PathVariable username: String) {
         val content = contentDataRepository.findByContentId(contentId.toLong())
         val user = userDataRepository.findByUsername(username)
+        logger.info("User \"$username\" removed his interaction of Post with Content ID $contentId!")
         return interactionDataRepository.deleteByUserDataAndContentData(user, content)
     }
 }

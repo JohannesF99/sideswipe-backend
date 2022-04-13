@@ -4,6 +4,7 @@ import de.johannes.sideswipe.model.ContentData
 import de.johannes.sideswipe.repositories.ContentDataRepository
 import de.johannes.sideswipe.repositories.FriendDataRepository
 import de.johannes.sideswipe.repositories.UserDataRepository
+import org.apache.logging.log4j.LogManager
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.web.bind.annotation.*
 
@@ -14,11 +15,14 @@ class ContentDataController(
     private val userDataRepository: UserDataRepository,
     private val friendDataRepository: FriendDataRepository
 ) {
+    private val logger = LogManager.getLogger()
 
     @PostMapping
     fun saveContent(@RequestBody contentData: ContentData, @PathVariable username: String): ContentData {
         val user = userDataRepository.findByUsername(username)
-        return contentDataRepository.save(ContentData(contentData, user))
+        val content = contentDataRepository.save(ContentData(contentData, user))
+        logger.info("User \"$username\" created new Content with ID ${content.contentId}")
+        return content
     }
 
     @GetMapping("/all")
@@ -36,11 +40,13 @@ class ContentDataController(
     fun changeContent(@PathVariable username: String, @PathVariable contentId: Int, @RequestBody newCaption: String): ContentData {
         val content = contentDataRepository.findByContentId(contentId.toLong())
         content.caption = newCaption
+        logger.info("Caption of Content ID ${content.contentId} got changed!")
         return contentDataRepository.save(content)
     }
 
     @DeleteMapping("/{contentId}")
     fun deleteContent(@PathVariable username: String, @PathVariable contentId: Int){
+        logger.info("Post with Content ID $contentId got deleted!")
         contentDataRepository.deleteById(contentId.toLong())
     }
 
