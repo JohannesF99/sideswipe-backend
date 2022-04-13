@@ -52,7 +52,7 @@ data class AccountCredentialData(
     }
 
     fun hasExpiredLoginToken(): Boolean{
-        return this.tokenExpireDate!!.after(Date())
+        return this.tokenExpireDate!!.before(Date())
     }
 
     override fun equals(other: Any?): Boolean {
