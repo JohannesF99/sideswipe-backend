@@ -56,6 +56,12 @@ data class UserData(
         }
     }
 
+    fun doesContentBelong(content: ContentData) {
+        if (!this.contentData.map { it.contentId }.contains(content.contentId)) {
+            throw IllegalAccessException("Content to change does not belong to User!")
+        }
+    }
+
     constructor(account: AccountCredentialData):
             this(account.username,
                 account.email,
