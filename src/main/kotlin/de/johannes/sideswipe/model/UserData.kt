@@ -1,6 +1,7 @@
 package de.johannes.sideswipe.model
 
 import de.johannes.sideswipe.enums.Gender
+import org.hibernate.Hibernate
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import java.util.*
@@ -56,4 +57,19 @@ data class UserData(
                 null,
                 Gender.Unkown,
                 null)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false
+        other as UserData
+
+        return userId == other.userId
+    }
+
+    override fun hashCode(): Int = javaClass.hashCode()
+
+    @Override
+    override fun toString(): String {
+        return this::class.simpleName + "(userId = $userId , username = $username , email = $email , created = $created , lastModified = $lastModified , name = $name , vorname = $vorname , gender = $gender , birthday = $birthday )"
+    }
 }
