@@ -49,6 +49,8 @@ tasks.withType<KotlinCompile> {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
 		jvmTarget = "17"
+		kotlinDaemonJvmArguments.add("-Dspring.profiles.active=prod")
+		kotlinDaemonJvmArguments.add("-Dlog4j.configurationFile=log4j2-prod.xml")
 	}
 }
 
