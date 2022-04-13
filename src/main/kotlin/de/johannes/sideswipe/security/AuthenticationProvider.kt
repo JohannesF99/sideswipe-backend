@@ -23,7 +23,7 @@ class AuthenticationProvider(private val accountCredentialDataRepository: Accoun
         try {
             val token = UUID.fromString(authentication.credentials.toString())
             val account = accountCredentialDataRepository.findByLoginToken(token)
-            return User(account.username,account.password, true, true, account.isLoginTokenExpired(), true,
+            return User(account.username,account.password, true, true, !account.isLoginTokenExpired(), true,
                 AuthorityUtils.createAuthorityList("USER"))
         } catch (e: IllegalArgumentException) {
             logger.warn("Unauthorized API-Request without Bearer-Token!")
