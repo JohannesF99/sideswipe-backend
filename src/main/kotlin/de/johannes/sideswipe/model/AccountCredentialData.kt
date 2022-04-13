@@ -1,5 +1,6 @@
 package de.johannes.sideswipe.model
 
+import org.hibernate.Hibernate
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import java.util.*
@@ -48,5 +49,24 @@ data class AccountCredentialData(
 
     fun hasLoginToken(): UUID?{
         return this.loginToken
+    }
+
+    fun hasExpiredLoginToken(): Boolean{
+        return this.tokenExpireDate!!.after(Date())
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false
+        other as AccountCredentialData
+
+        return accoundCredentialId == other.accoundCredentialId
+    }
+
+    override fun hashCode(): Int = javaClass.hashCode()
+
+    @Override
+    override fun toString(): String {
+        return this::class.simpleName + "(accoundCredentialId = $accoundCredentialId , email = $email , username = $username , password = $password , created = $created , lastModified = $lastModified , loginToken = $loginToken , tokenExpireDate = $tokenExpireDate )"
     }
 }
