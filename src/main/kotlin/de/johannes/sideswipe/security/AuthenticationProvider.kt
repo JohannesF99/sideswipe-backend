@@ -14,14 +14,14 @@ class AuthenticationProvider(private val accountCredentialDataRepository: Accoun
     AbstractUserDetailsAuthenticationProvider() {
 
     override fun additionalAuthenticationChecks(
-        userDetails: UserDetails?,
-        authentication: UsernamePasswordAuthenticationToken?
+        userDetails: UserDetails,
+        authentication: UsernamePasswordAuthenticationToken
     ) {}
 
-    override fun retrieveUser(username: String, authentication: UsernamePasswordAuthenticationToken): UserDetails? {
+    override fun retrieveUser(username: String, authentication: UsernamePasswordAuthenticationToken): UserDetails {
         val token = UUID.fromString(authentication.credentials.toString())
         val account = accountCredentialDataRepository.findByLoginToken(token)
-        return User(account.username,account.password, true, true, true, true,
+        return User(account.username,account.password, true, true, account.hasExpiredLoginToken(), true,
             AuthorityUtils.createAuthorityList("USER"))
     }
 }
