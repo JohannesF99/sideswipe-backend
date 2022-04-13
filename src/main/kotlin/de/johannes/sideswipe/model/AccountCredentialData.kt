@@ -1,5 +1,6 @@
 package de.johannes.sideswipe.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.hibernate.Hibernate
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
@@ -51,7 +52,8 @@ data class AccountCredentialData(
         return this.loginToken
     }
 
-    fun hasExpiredLoginToken(): Boolean{
+    @JsonIgnore
+    fun isLoginTokenExpired(): Boolean{
         return this.tokenExpireDate!!.before(Date())
     }
 

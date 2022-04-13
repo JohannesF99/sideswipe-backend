@@ -35,7 +35,7 @@ class LoginTokenController(
         val accountData = accountCredentialDataRepository.findByUsernameAndPassword(account.username, account.password.toSHA256())
         if (accountData != null) {
             accountData.hasLoginToken() ?: accountData.createLoginToken()
-            if (accountData.hasExpiredLoginToken()) {
+            if (accountData.isLoginTokenExpired()) {
                 accountData.createLoginToken()
             }
             accountCredentialDataRepository.save(accountData)

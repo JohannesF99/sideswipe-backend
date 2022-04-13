@@ -21,7 +21,7 @@ class AuthenticationProvider(private val accountCredentialDataRepository: Accoun
     override fun retrieveUser(username: String, authentication: UsernamePasswordAuthenticationToken): UserDetails {
         val token = UUID.fromString(authentication.credentials.toString())
         val account = accountCredentialDataRepository.findByLoginToken(token)
-        return User(account.username,account.password, true, true, account.hasExpiredLoginToken(), true,
+        return User(account.username,account.password, true, true, account.isLoginTokenExpired(), true,
             AuthorityUtils.createAuthorityList("USER"))
     }
 }

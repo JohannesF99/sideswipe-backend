@@ -1,5 +1,6 @@
 package de.johannes.sideswipe.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import java.util.*
@@ -11,6 +12,7 @@ import javax.persistence.*
 data class ContentData(
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @JsonIgnore
     var contentId: Long = 0,
     @Column(columnDefinition="TEXT")
     var caption: String,
@@ -21,6 +23,7 @@ data class ContentData(
 
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonIgnore
     var lastModified: Date = Date()
 ) {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
