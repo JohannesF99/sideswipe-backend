@@ -18,7 +18,7 @@ class UserDataController(private val userDataRepository: UserDataRepository) {
     fun getUserData(@PathVariable username: String): UserData{
         try {
             val user = userDataRepository.findByUsername(username)
-            logger.info("User-Data requested for \"$username\"")
+            logger.info("User-Data requested for Username \"$username\"")
             return user
         } catch (e: Exception){
             logger.warn("User-Data requested for unknown Username \"$username\"")
