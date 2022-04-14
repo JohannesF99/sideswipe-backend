@@ -152,16 +152,9 @@
 							"name": "Get User Data",
 							"request": {
 								"method": "GET",
-								"header": [
-									{
-										"key": "token",
-										"value": "2959fa35-30c6-46a5-a38e-e390f787ad93",
-										"type": "default",
-										"disabled": true
-									}
-								],
+								"header": [],
 								"url": {
-									"raw": "http://89.58.36.232:8080/api/v1/user/{username}",
+									"raw": "http://89.58.36.232:8080/api/v1/user/{{username}}",
 									"protocol": "http",
 									"host": [
 										"89",
@@ -174,7 +167,7 @@
 										"api",
 										"v1",
 										"user",
-										"{username}"
+										"{{username}}"
 									]
 								}
 							},
@@ -227,7 +220,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/vorname",
+									"raw": "http://89.58.36.232:8080/api/v1/user/{{username}}/vorname",
 									"protocol": "http",
 									"host": [
 										"89",
@@ -240,7 +233,7 @@
 										"api",
 										"v1",
 										"user",
-										"{username}",
+										"{{username}}",
 										"vorname"
 									]
 								}
@@ -262,7 +255,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/name",
+									"raw": "http://89.58.36.232:8080/api/v1/user/{{username}}/name",
 									"protocol": "http",
 									"host": [
 										"89",
@@ -275,7 +268,7 @@
 										"api",
 										"v1",
 										"user",
-										"{username}",
+										"{{username}}",
 										"name"
 									]
 								}
@@ -289,15 +282,15 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "Gender",
+									"raw": "0",
 									"options": {
 										"raw": {
-											"language": "text"
+											"language": "json"
 										}
 									}
 								},
 								"url": {
-									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/gender",
+									"raw": "http://89.58.36.232:8080/api/v1/user/{{username}}/gender",
 									"protocol": "http",
 									"host": [
 										"89",
@@ -310,7 +303,7 @@
 										"api",
 										"v1",
 										"user",
-										"{username}",
+										"{{username}}",
 										"gender"
 									]
 								}
@@ -332,7 +325,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/birthday",
+									"raw": "http://89.58.36.232:8080/api/v1/user/{{username}}/birthday",
 									"protocol": "http",
 									"host": [
 										"89",
@@ -345,7 +338,7 @@
 										"api",
 										"v1",
 										"user",
-										"{username}",
+										"{{username}}",
 										"birthday"
 									]
 								}
@@ -392,16 +385,6 @@
 						{
 							"name": "Delete Account",
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "78c4a950-8df9-4ab1-9a8c-d5edbf0711e2",
-											"type": "string"
-										}
-									]
-								},
 								"method": "DELETE",
 								"header": [
 									{
@@ -413,10 +396,10 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "\"username\"",
+									"raw": "string",
 									"options": {
 										"raw": {
-											"language": "json"
+											"language": "text"
 										}
 									}
 								},
@@ -470,7 +453,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/content/{contentId}",
+									"raw": "http://89.58.36.232:8080/api/v1/user/{{username}}/content/{{contentId}}",
 									"protocol": "http",
 									"host": [
 										"89",
@@ -483,9 +466,9 @@
 										"api",
 										"v1",
 										"user",
-										"{username}",
+										"{{username}}",
 										"content",
-										"{contentId}"
+										"{{contentId}}"
 									]
 								}
 							},
@@ -498,7 +481,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "New Caption",
+									"raw": "Hello World!",
 									"options": {
 										"raw": {
 											"language": "text"
@@ -506,7 +489,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/content/{contentId}",
+									"raw": "http://89.58.36.232:8080/api/v1/user/{{username}}/content/{{contentId}}",
 									"protocol": "http",
 									"host": [
 										"89",
@@ -519,9 +502,9 @@
 										"api",
 										"v1",
 										"user",
-										"{username}",
+										"{{username}}",
 										"content",
-										"{contentId}"
+										"{{contentId}}"
 									]
 								}
 							},
@@ -533,7 +516,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/content/{contentId}",
+									"raw": "http://89.58.36.232:8080/api/v1/user/{{username}}/content/{{contentId}}",
 									"protocol": "http",
 									"host": [
 										"89",
@@ -546,9 +529,9 @@
 										"api",
 										"v1",
 										"user",
-										"{username}",
+										"{{username}}",
 										"content",
-										"{contentId}"
+										"{{contentId}}"
 									]
 								}
 							},
@@ -569,7 +552,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/content",
+									"raw": "http://89.58.36.232:8080/api/v1/user/{{username}}/content",
 									"protocol": "http",
 									"host": [
 										"89",
@@ -582,7 +565,7 @@
 										"api",
 										"v1",
 										"user",
-										"{username}",
+										"{{username}}",
 										"content"
 									]
 								}
@@ -595,7 +578,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/content/friends",
+									"raw": "http://89.58.36.232:8080/api/v1/user/{{username}}/content/friends",
 									"protocol": "http",
 									"host": [
 										"89",
@@ -608,7 +591,7 @@
 										"api",
 										"v1",
 										"user",
-										"{username}",
+										"{{username}}",
 										"content",
 										"friends"
 									]
@@ -622,7 +605,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/content/all",
+									"raw": "http://89.58.36.232:8080/api/v1/user/{{username}}/content/all",
 									"protocol": "http",
 									"host": [
 										"89",
@@ -635,7 +618,7 @@
 										"api",
 										"v1",
 										"user",
-										"{username}",
+										"{{username}}",
 										"content",
 										"all"
 									]
@@ -654,7 +637,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/interaction/{contentId}/dislike",
+									"raw": "http://89.58.36.232:8080/api/v1/user/{{username}}/interaction/{{contentId}}/dislike",
 									"protocol": "http",
 									"host": [
 										"89",
@@ -667,9 +650,9 @@
 										"api",
 										"v1",
 										"user",
-										"{username}",
+										"{{username}}",
 										"interaction",
-										"{contentId}",
+										"{{contentId}}",
 										"dislike"
 									]
 								}
@@ -682,7 +665,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/interaction/{contentId}/like",
+									"raw": "http://89.58.36.232:8080/api/v1/user/{{username}}/interaction/{{contentId}}/like",
 									"protocol": "http",
 									"host": [
 										"89",
@@ -695,9 +678,9 @@
 										"api",
 										"v1",
 										"user",
-										"{username}",
+										"{{username}}",
 										"interaction",
-										"{contentId}",
+										"{{contentId}}",
 										"like"
 									]
 								}
@@ -710,7 +693,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/interaction/{contentId}",
+									"raw": "http://89.58.36.232:8080/api/v1/user/{{username}}/interaction/{{contentId}}",
 									"protocol": "http",
 									"host": [
 										"89",
@@ -723,9 +706,9 @@
 										"api",
 										"v1",
 										"user",
-										"{username}",
+										"{{username}}",
 										"interaction",
-										"{contentId}"
+										"{{contentId}}"
 									]
 								}
 							},
@@ -737,7 +720,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/interaction/all",
+									"raw": "http://89.58.36.232:8080/api/v1/user/{{username}}/interaction/all",
 									"protocol": "http",
 									"host": [
 										"89",
@@ -750,7 +733,7 @@
 										"api",
 										"v1",
 										"user",
-										"{username}",
+										"{{username}}",
 										"interaction",
 										"all"
 									]
@@ -764,7 +747,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/interaction/{contentId}/remove",
+									"raw": "http://89.58.36.232:8080/api/v1/user/{{username}}/interaction/{{contentId}}/remove",
 									"protocol": "http",
 									"host": [
 										"89",
@@ -777,9 +760,9 @@
 										"api",
 										"v1",
 										"user",
-										"{username}",
+										"{{username}}",
 										"interaction",
-										"{contentId}",
+										"{{contentId}}",
 										"remove"
 									]
 								}
@@ -798,10 +781,10 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "friendID"
+									"raw": "string"
 								},
 								"url": {
-									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/friend",
+									"raw": "http://89.58.36.232:8080/api/v1/user/{{username}}/friend",
 									"protocol": "http",
 									"host": [
 										"89",
@@ -814,7 +797,7 @@
 										"api",
 										"v1",
 										"user",
-										"{username}",
+										"{{username}}",
 										"friend"
 									]
 								}
@@ -828,10 +811,10 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "friendID"
+									"raw": "string"
 								},
 								"url": {
-									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/friend",
+									"raw": "http://89.58.36.232:8080/api/v1/user/{{username}}/friend",
 									"protocol": "http",
 									"host": [
 										"89",
@@ -844,7 +827,7 @@
 										"api",
 										"v1",
 										"user",
-										"{username}",
+										"{{username}}",
 										"friend"
 									]
 								}
@@ -857,7 +840,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://89.58.36.232:8080/api/v1/user/{username}/friend/all",
+									"raw": "http://89.58.36.232:8080/api/v1/user/{{username}}/friend/all",
 									"protocol": "http",
 									"host": [
 										"89",
@@ -870,7 +853,7 @@
 										"api",
 										"v1",
 										"user",
-										"{username}",
+										"{{username}}",
 										"friend",
 										"all"
 									]
@@ -882,7 +865,14 @@
 				}
 			],
 			"auth": {
-				"type": "bearer"
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "fdd02b25-9bf9-464b-8201-fffd7c5aaa11",
+						"type": "string"
+					}
+				]
 			},
 			"event": [
 				{
@@ -924,6 +914,17 @@
 					""
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"key": "username",
+			"value": "string"
+		},
+		{
+			"key": "contentId",
+			"value": "3",
+			"type": "default"
 		}
 	]
 }
