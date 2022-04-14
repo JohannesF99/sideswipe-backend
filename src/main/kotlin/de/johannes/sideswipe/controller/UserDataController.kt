@@ -20,7 +20,7 @@ class UserDataController(private val userDataRepository: UserDataRepository) {
         try {
             val user = userDataRepository.findByUsername(username)
             user.doesTokenMatch()
-            logger.info("User-Data requested for Username '$username'")
+            logger.info("User-Data requested for Username '$username'!")
             return user
         } catch (e: EmptyResultDataAccessException){
             logger.warn("User-Data requested for unknown Username '$username'")

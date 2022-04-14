@@ -29,8 +29,8 @@ class LoginTokenController(
             accountCredentialDataRepository.save(accountCredentialData)
             val user = UserData(accountCredentialData)
             userDataRepository.save(user)
-            logger.info("New Account created: $accountCredentialData")
-            logger.info("Corresponding User created: $user")
+            logger.info("New Account '${accountCredentialData.username}' created!")
+            logger.info("Corresponding User with User-ID ${user.userId} created!")
         } catch (e: Exception){
             logger.warn("Account-Creation failed, because Username/E-Mail is already registered!")
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Account-Creation failed, because Username/E-Mail is already registered!", e)
@@ -46,7 +46,7 @@ class LoginTokenController(
                 accountData.createLoginToken()
             }
             accountCredentialDataRepository.save(accountData)
-            logger.info("Login from Account: $accountData")
+            logger.info("Login from Account '${accountData.username}'!")
             return accountData.hasLoginToken()!!
         } else {
             logger.warn("No Account for given Credentials can be found!")
@@ -60,7 +60,7 @@ class LoginTokenController(
         if (accountData != null){
             accountData.removeLoginToken()
             accountCredentialDataRepository.save(accountData)
-            logger.info("Logout from Account: $accountData")
+            logger.info("Logout from Account '${accountData.username}'!")
         } else {
             logger.warn("No Account for given Credentials can be found!")
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "No Account for given Credentials can be found!")

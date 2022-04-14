@@ -56,6 +56,9 @@ class ContentDataController(
     fun getContent(@PathVariable username: String, @PathVariable contentId: Int): ContentData {
         try {
             val content = contentDataRepository.findByContentId(contentId.toLong())
+            val user = userDataRepository.findByUsername(username)
+            user.doesTokenMatch()
+            user.doesContentBelong(content)
             logger.info("Fetched Content for Content-ID '$contentId'!")
             return content
         } catch (e: EmptyResultDataAccessException) {
@@ -64,6 +67,9 @@ class ContentDataController(
         } catch (e: SecurityException) {
             logger.warn("Authorization-Token does not match Username!")
             throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Authorization-Token does not match Username!", e)
+        } catch (e: IllegalAccessException) {
+            logger.warn("Content to change does not belong to User!")
+            throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Content to change does not belong to User!", e)
         }
     }
 
@@ -75,7 +81,7 @@ class ContentDataController(
             user.doesTokenMatch()
             user.doesContentBelong(content)
             content.caption = newCaption
-            logger.info("Caption of Content-ID ${content.contentId} got changed!")
+            logger.info("Caption of Content-ID '${content.contentId}' got changed!")
             return contentDataRepository.save(content)
         } catch (e: EmptyResultDataAccessException) {
             logger.warn("Could not change Content-Caption for unknown Content-ID '$contentId'!")
