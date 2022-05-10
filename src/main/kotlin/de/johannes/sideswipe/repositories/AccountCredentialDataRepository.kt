@@ -10,7 +10,7 @@ import java.util.*
 interface AccountCredentialDataRepository: JpaRepository<AccountCredentialData, Long> {
     fun save(accountCredentialData: AccountCredentialData): AccountCredentialData
     fun findByUsernameAndPassword(username: String, password: String): AccountCredentialData?
-    fun findByLoginToken(token: UUID?): AccountCredentialData
+    fun findByLoginToken(token: UUID?): AccountCredentialData?
     @Transactional
     fun deleteByUsername(username: String)
 }

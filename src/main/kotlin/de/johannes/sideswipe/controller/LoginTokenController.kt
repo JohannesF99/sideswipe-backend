@@ -55,8 +55,8 @@ class LoginTokenController(
     }
 
     @PostMapping("/logout")
-    fun logoutAccount(@RequestBody account: AccountCredentialData) {
-        val accountData = accountCredentialDataRepository.findByUsernameAndPassword(account.username, account.password.toSHA256())
+    fun logoutAccount(@RequestBody bearerToken: UUID) {
+        val accountData = accountCredentialDataRepository.findByLoginToken(bearerToken)
         if (accountData != null){
             accountData.removeLoginToken()
             accountCredentialDataRepository.save(accountData)

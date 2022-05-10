@@ -87,4 +87,11 @@ data class UserData(
     override fun toString(): String {
         return this::class.simpleName + "(userId = $userId , username = $username , email = $email , created = $created , lastModified = $lastModified , name = $name , vorname = $vorname , gender = $gender , birthday = $birthday )"
     }
+
+    fun updateFrom(newUserData: UserData) {
+        this.name = newUserData.name
+        this.vorname = newUserData.vorname
+        this.gender = newUserData.gender
+        this.birthday = newUserData.birthday
+    }
 }

@@ -3,6 +3,7 @@ package de.johannes.sideswipe.controller
 import de.johannes.sideswipe.model.AccountCredentialData
 import de.johannes.sideswipe.repositories.AccountCredentialDataRepository
 import de.johannes.sideswipe.repositories.UserDataRepository
+import de.johannes.sideswipe.service.PasswordEncoderService.Companion.toSHA256
 import org.apache.logging.log4j.LogManager
 import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.http.HttpStatus
@@ -18,18 +19,25 @@ class AccountCredentialDataController(
     private val logger = LogManager.getLogger()
 
     @DeleteMapping
-    fun deleteAccountCredentials(@RequestBody username: String){
+    fun deleteAccountCredentials(@RequestBody accountCredentialData: AccountCredentialData){
         try {
-            val user = userDataRepository.findByUsername(username)
+            accountCredentialDataRepository.findByUsernameAndPassword(
+                accountCredentialData.username,
+                accountCredentialData.password.toSHA256()
+            ) ?: throw IllegalAccessException("Combination of Username and Password does not match!")
+            val user = userDataRepository.findByUsername(accountCredentialData.username)
             user.doesTokenMatch()
-            logger.info("Account with Username '$username' got deleted!")
-            accountCredentialDataRepository.deleteByUsername(username)
+            logger.info("Account with Username '${accountCredentialData.username}' got deleted!")
+            accountCredentialDataRepository.deleteByUsername(accountCredentialData.username)
         } catch (e: EmptyResultDataAccessException){
-            logger.warn("Could not delete User for unknown Username '$username'")
-            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not delete User for unknown Username '$username'", e)
+            logger.warn("Could not delete User for unknown Username '${accountCredentialData.username}'")
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not delete User for unknown Username '${accountCredentialData.username}'", e)
         } catch (e: SecurityException) {
             logger.warn("Authorization-Token does not match Username!")
             throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Authorization-Token does not match Username!")
+        } catch (e: IllegalAccessException) {
+            logger.warn(e.message)
+            throw ResponseStatusException(HttpStatus.CONFLICT, e.message)
         }
     }
 
