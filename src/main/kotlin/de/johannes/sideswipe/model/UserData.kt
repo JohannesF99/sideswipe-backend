@@ -40,7 +40,7 @@ data class UserData(
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     var userId: Long = 0
 
-    @OneToMany(mappedBy = "userData", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @OneToMany(mappedBy = "userData", fetch = FetchType.LAZY)
     private val contentData: Set<ContentData> = mutableSetOf()
 
     @OneToMany(mappedBy = "userData", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
