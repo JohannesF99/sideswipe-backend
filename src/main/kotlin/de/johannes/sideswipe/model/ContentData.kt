@@ -12,7 +12,6 @@ import javax.persistence.*
 data class ContentData(
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @JsonIgnore
     var contentId: Long = 0,
     @Column(columnDefinition="TEXT")
     var caption: String,
