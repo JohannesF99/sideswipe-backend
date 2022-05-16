@@ -20,16 +20,18 @@ class InteractionDataController(
     private val logger = LogManager.getLogger()
 
     @GetMapping("/{contentId}")
-    fun getAllInteractionsForContent(@PathVariable contentId: Int, @PathVariable username: String): List<Map<String, Boolean>> {
+    fun getAllInteractionsForContent(@PathVariable contentId: Int, @PathVariable username: String): MutableMap<String, Any> {
         try {
             val user = userDataRepository.findByUsername(username)
             val content = contentDataRepository.findByContentId(contentId.toLong())
             user.doesTokenMatch()
             user.doesContentBelong(content)
+            val map = mutableMapOf<String, Any>()
             logger.info("Interaction-Data requested for Content-ID '$contentId'")
-            return interactionDataRepository.findAllByContentData(content)
-                .sortedBy { it.isLike }
-                .map { mapOf(Pair(it.userData!!.username, it.isLike)) }
+            map["likes"] = interactionDataRepository.findAllByContentData(content).count { it.isLike }
+            map["dislikes"] = interactionDataRepository.findAllByContentData(content).count { !it.isLike }
+            map["userInteraction"] = interactionDataRepository.findByUserDataAndContentData(user, content)?.isLike ?: "None"
+            return map
         } catch (e: EmptyResultDataAccessException){
             logger.warn("Interaction-Data requested for unknown Content-ID '$contentId' or unknown Username '$username'!")
             throw ResponseStatusException(HttpStatus.BAD_REQUEST,"Interaction-Data requested for unknown Content-ID '$contentId'", e)
