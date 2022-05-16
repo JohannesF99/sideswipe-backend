@@ -103,7 +103,7 @@ class ContentDataController(
             user.doesTokenMatch()
             user.doesContentBelong(content)
             logger.info("Post with Content ID $contentId got deleted!")
-            contentDataRepository.deleteById(content.contentId)
+            contentDataRepository.deleteByContentId(content.contentId)
         } catch (e: EmptyResultDataAccessException) {
             logger.warn("Could not delete Content for unknown Content-ID '$contentId'!")
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not delete Content for unknown Content-ID '$contentId'!", e)
