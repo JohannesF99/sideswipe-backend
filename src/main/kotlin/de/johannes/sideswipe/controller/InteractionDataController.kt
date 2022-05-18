@@ -25,7 +25,6 @@ class InteractionDataController(
             val user = userDataRepository.findByUsername(username)
             val content = contentDataRepository.findByContentId(contentId.toLong())
             user.doesTokenMatch()
-            user.doesContentBelong(content)
             val map = mutableMapOf<String, Any>()
             logger.info("Interaction-Data requested for Content-ID '$contentId'")
             map["likes"] = interactionDataRepository.findAllByContentData(content).count { it.isLike }
@@ -38,9 +37,6 @@ class InteractionDataController(
         } catch (e: SecurityException) {
             logger.warn("Authorization-Token does not match Username!")
             throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Authorization-Token does not match Username!", e)
-        } catch (e: IllegalAccessException) {
-            logger.warn("Content does not belong to User, so Interactions cannot be fetched!")
-            throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Content does not belong to User, so Interactions cannot be fetched!", e)
         }
     }
 
