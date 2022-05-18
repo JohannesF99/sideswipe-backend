@@ -54,12 +54,13 @@ class FriendDataController(
     }
 
     @GetMapping("/all")
-    fun getFriendsForUserData(@PathVariable username: String): Set<FriendData> {
+    fun getFriendsForUserData(@PathVariable username: String): List<String> {
         try {
             val user = userDataRepository.findByUsername(username)
             user.doesTokenMatch()
             logger.info("Fetched Friends-List for Username '$username'!")
             return friendDataRepository.findAllByUserId(user.userId)
+                .map { it.friendData!!.username }
         } catch (e: EmptyResultDataAccessException){
             logger.warn("Could not fetch Friends-List for unknown Username '$username'!")
             throw  ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not fetch Friends-List for unknown Username '$username'!", e)
