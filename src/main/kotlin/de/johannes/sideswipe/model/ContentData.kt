@@ -18,7 +18,7 @@ data class ContentData(
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    private val created: Date = Date(),
+    val created: Date = Date(),
 
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -27,7 +27,7 @@ data class ContentData(
 ) {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
-    private var userData: UserData? = null
+    var userData: UserData? = null
 
     @OneToMany(mappedBy = "contentData", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     private val interactionData: Set<InteractionData> = mutableSetOf()
