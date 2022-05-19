@@ -2,6 +2,7 @@ package de.johannes.sideswipe.controller
 
 import de.johannes.sideswipe.model.AccountCredentialData
 import de.johannes.sideswipe.repositories.AccountCredentialDataRepository
+import de.johannes.sideswipe.repositories.ContentDataRepository
 import de.johannes.sideswipe.repositories.UserDataRepository
 import de.johannes.sideswipe.service.PasswordEncoderService.Companion.toSHA256
 import org.apache.logging.log4j.LogManager
@@ -14,7 +15,8 @@ import org.springframework.web.server.ResponseStatusException
 @RequestMapping("api/v1/account")
 class AccountCredentialDataController(
     private val accountCredentialDataRepository: AccountCredentialDataRepository,
-    private val userDataRepository: UserDataRepository
+    private val userDataRepository: UserDataRepository,
+    private val contentDataRepository: ContentDataRepository
 ) {
     private val logger = LogManager.getLogger()
 
@@ -28,6 +30,7 @@ class AccountCredentialDataController(
             val user = userDataRepository.findByUsername(accountCredentialData.username)
             user.doesTokenMatch()
             logger.info("Account with Username '${accountCredentialData.username}' got deleted!")
+            contentDataRepository.deleteAllByUserData(user)
             accountCredentialDataRepository.deleteByUsername(accountCredentialData.username)
         } catch (e: EmptyResultDataAccessException){
             logger.warn("Could not delete User for unknown Username '${accountCredentialData.username}'")

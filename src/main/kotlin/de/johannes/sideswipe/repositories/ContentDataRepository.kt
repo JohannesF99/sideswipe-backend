@@ -13,4 +13,6 @@ interface ContentDataRepository: JpaRepository<ContentData, Long> {
     fun findAllByUserData(userData: UserData): Set<ContentData>
     @Transactional
     fun deleteByContentId(contentId: Long)
+    @Transactional
+    fun deleteAllByUserData(userData: UserData)
 }
