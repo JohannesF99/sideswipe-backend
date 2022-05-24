@@ -40,6 +40,30 @@ class InteractionDataController(
         }
     }
 
+    @GetMapping("/{contentId}/list")
+    fun getInteractionListForContent(@PathVariable contentId: Int, @PathVariable username: String): Map<String, List<String>> {
+        try {
+            val user = userDataRepository.findByUsername(username)
+            val content = contentDataRepository.findByContentId(contentId.toLong())
+            user.doesTokenMatch()
+            val map = mutableMapOf<String, List<String>>()
+            logger.info("Interaction-List requested for Content-ID '$contentId'")
+            map["likeList"] = interactionDataRepository.findAllByContentData(content)
+                .filter { it.isLike }
+                .map { it.userData!!.username }
+            map["dislikeList"] = interactionDataRepository.findAllByContentData(content)
+                .filter { !it.isLike }
+                .map { it.userData!!.username }
+            return map
+        } catch (e: EmptyResultDataAccessException){
+            logger.warn("Interaction-List requested for unknown Content-ID '$contentId' or unknown Username '$username'!")
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST,"Interaction-Data requested for unknown Content-ID '$contentId'", e)
+        } catch (e: SecurityException) {
+            logger.warn("Authorization-Token does not match Username!")
+            throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Authorization-Token does not match Username!", e)
+        }
+    }
+
     @GetMapping("/all")
     fun getAllInteractionsForUser(@PathVariable username: String): List<Map<Long, Boolean>> {
         val user = userDataRepository.findByUsername(username)
