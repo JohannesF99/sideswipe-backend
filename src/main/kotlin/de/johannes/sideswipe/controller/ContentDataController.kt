@@ -40,7 +40,7 @@ class ContentDataController(
     fun getAllContent(@PathVariable username: String): Set<ContentData> {
         try {
             val user = userDataRepository.findByUsername(username)
-            user.doesTokenMatch()
+//            user.doesTokenMatch()
             logger.info("Fetched Content-List for Username '$username'!")
             return contentDataRepository.findAllByUserData(user)
         } catch (e : EmptyResultDataAccessException) {

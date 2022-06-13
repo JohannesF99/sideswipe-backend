@@ -57,7 +57,7 @@ class FriendDataController(
     fun getFriendsForUserData(@PathVariable username: String): List<String> {
         try {
             val user = userDataRepository.findByUsername(username)
-            user.doesTokenMatch()
+//            user.doesTokenMatch()
             logger.info("Fetched Friends-List for Username '$username'!")
             return friendDataRepository.findAllByUserId(user.userId)
                 .map { it.friendData!!.username }
